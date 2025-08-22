@@ -54,6 +54,18 @@ MAPEO_COLS = [
     'mapeo.AVENIDA_PRINCIPAL'
 ]
 
+MAPEO_INT_COLS = [
+    'mapeo.ANO_DE_APERTURA', 'mapeo.AFLUENCIA', 'mapeo.NUMERO_INQUILINOS',
+    'mapeo.CAJONES', 'mapeo.PLANTAS', 'mapeo.REDES_SOCIALES_FOLLOWERS',
+    'mapeo.SUPERMERCADO', 'mapeo.CINE', 'mapeo.GIMNASIO',
+    'mapeo.DEPARTAMENTAL', 'mapeo.COBRA_ESTACIONAMIENTO', 'mapeo.AVENIDA_PRINCIPAL'
+]
+
+MAPEO_FLOAT_COLS = [
+    'mapeo.GLA', 'mapeo.OCUPACION', 'mapeo.AREA_RENTADA',
+    'mapeo.SUPERFICIE_TOTAL', 'mapeo.CONSTRUCCION'
+]
+
 # Helper para labels visibles (quita el prefijo mapeo.)
 def label_visible(col):
     return col.replace('mapeo.', '').replace('_', ' ')
@@ -352,6 +364,7 @@ if 'df_input' in locals():
         fig_local.update_traces(marker = dict(size = 10))
         fig_local.update_layout(showlegend = True)
         st.plotly_chart(fig_local, use_container_width = True)
+
 
 
 
