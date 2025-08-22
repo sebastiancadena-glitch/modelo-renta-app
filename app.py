@@ -33,7 +33,7 @@ def load_dataset_maestro():
     fname_candidates = ['dataset_maestro_app.xlsx', 'dataset_maestro.xlsx']
     fname = next((f for f in fname_candidates if os.path.exists(f)), fname_candidates[-1])
     df = pd.read_excel(fname, sheet_name = 'dataset_maestro')
-    df.drop(columns = ['mapeo.CONSTRUCCION'], errors = 'ignore', inplace = True)
+    #df.drop(columns = ['mapeo.CONSTRUCCION'], errors = 'ignore', inplace = True)
     return df
 
 df_maestro = load_dataset_maestro()
@@ -364,6 +364,7 @@ if 'df_input' in locals():
         fig_local.update_traces(marker = dict(size = 10))
         fig_local.update_layout(showlegend = True)
         st.plotly_chart(fig_local, use_container_width = True)
+
 
 
 
