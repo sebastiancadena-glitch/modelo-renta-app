@@ -124,8 +124,25 @@ else:
         cols = st.columns(4)
         for i, c in enumerate(MAPEO_COLS[chunk_start:chunk_start+4]):
             default_val = defaults_mapeo.get(c)
-            if c in df_maestro.columns and pd.api.types.is_numeric_dtype(df_maestro[c]):
-                val = cols[i].number_input(label_visible(c), value = float(default_val) if pd.notna(default_val) else 0.0)
+            if c in MAPEO_INT_COLS:
+                val = cols[i].number_input(
+                    label_visible(c),
+                    value = int(default_val) if pd.notna(default_val) else 0,
+                    step = 1,
+                    format = "%d"
+                )
+            elif c in MAPEO_FLOAT_COLS:
+                val = cols[i].number_input(
+                    label_visible(c),
+                    value = float(default_val) if pd.notna(default_val) else 0.0,
+                    step = 0.1
+                )
+            elif c in df_maestro.columns and pd.api.types.is_numeric_dtype(df_maestro[c]):
+                # Por defecto, si es numérico pero no está en tus listas
+                val = cols[i].number_input(
+                    label_visible(c),
+                    value = float(default_val) if pd.notna(default_val) else 0.0
+                )
             else:
                 if c == 'mapeo.UBICACION':
                     ubicaciones = sorted(df_maestro['mapeo.UBICACION'].dropna().unique())
@@ -335,6 +352,7 @@ if 'df_input' in locals():
         fig_local.update_traces(marker = dict(size = 10))
         fig_local.update_layout(showlegend = True)
         st.plotly_chart(fig_local, use_container_width = True)
+
 
 
 
