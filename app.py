@@ -126,11 +126,19 @@ else:
             default_val = defaults_mapeo.get(c)
             if c in df_maestro.columns and pd.api.types.is_numeric_dtype(df_maestro[c]):
                 val = cols[i].number_input(label_visible(c), value = float(default_val) if pd.notna(default_val) else 0.0)
-            else:
+            elif:
                 # selectbox para UBICACION
                 if c == 'mapeo.UBICACION':
                     ubicaciones = sorted(df_maestro['mapeo.UBICACION'].dropna().unique())
                     default_ubi = (row['mapeo.UBICACION'].iloc[0] if 'mapeo.UBICACION' in row.columns else (ubicaciones[0] if ubicaciones else ''))
+                    val = cols[i].selectbox(label_visible(c), ubicaciones, index = (ubicaciones.index(default_ubi) if default_ubi in ubicaciones else 0))
+                else:
+                    val = cols[i].text_input(label_visible(c), value = '' if default_val is None else str(default_val))
+            else:
+                # selectbox para TIPO DE PLAZA
+                if c == 'mapeo.UBICACION':
+                    ubicaciones = sorted(df_maestro['mapeo.TIPO_DE_PLAZA'].dropna().unique())
+                    default_ubi = (row['mapeo.TIPO_DE_PLAZA'].iloc[0] if 'mapeo.TIPO_DE_PLAZA' in row.columns else (ubicaciones[0] if ubicaciones else ''))
                     val = cols[i].selectbox(label_visible(c), ubicaciones, index = (ubicaciones.index(default_ubi) if default_ubi in ubicaciones else 0))
                 else:
                     val = cols[i].text_input(label_visible(c), value = '' if default_val is None else str(default_val))
@@ -332,6 +340,7 @@ if 'df_input' in locals():
         fig_local.update_traces(marker = dict(size = 10))
         fig_local.update_layout(showlegend = True)
         st.plotly_chart(fig_local, use_container_width = True)
+
 
 
 
