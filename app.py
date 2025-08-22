@@ -56,13 +56,13 @@ MAPEO_COLS = [
 
 # Helper para labels visibles (quita el prefijo mapeo.)
 def label_visible(col):
-    return col.replace('mapeo.', '') if col.startswith('mapeo.') else col
-
+    return col.replace('mapeo.', '').replace('_', ' ')
+    
 # --- FORMULARIO / ARCHIVO DE ENTRADA ---
 st.title('📈 Predicción de Renta por Metro Cuadrado')
 
 st.markdown('Carga un archivo con los siguientes campos, o ingrésalos manualmente:')
-st.code('PLAZA, LOCAL, NOMBRE, GIRO, SUPERFICIE, MXN_POR_M2, FECHA_INICIO, FECHA_FIN, mapeo.UBICACION')
+st.code('PLAZA, LOCAL, NOMBRE, GIRO, SUPERFICIE, MXN_POR_M2, FECHA_INICIO, FECHA_FIN, UBICACION')
 
 uploaded_file = st.file_uploader('Sube un archivo CSV o Excel', type = ['csv', 'xlsx'])
 
@@ -332,6 +332,7 @@ if 'df_input' in locals():
         fig_local.update_traces(marker = dict(size = 10))
         fig_local.update_layout(showlegend = True)
         st.plotly_chart(fig_local, use_container_width = True)
+
 
 
 
